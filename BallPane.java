@@ -8,15 +8,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import java.security.SecureRandom;
+import javafx.scene.control.Button;
+import javafx.application.Application;
 
-public class BallPane extends Pane {
-	SecureRandom random = new SecureRandom();
-	public final double radius = (double)(Math.random()*20);
+public class BallPane extends Pane{
+	public final double radius = 20;
 	private double x = radius, y = radius;
 	private double dx = 1, dy = 1;
 	private Circle circle = new Circle(x, y, radius);
 	private Timeline animation;
+	Button button1 = new Button("Y");
+	Button button2 = new Button("X");
 	
+	
+        
+		
+
 	public BallPane() {
 		SecureRandom random = new SecureRandom();
 		int R = (int) (Math.random( )*256);
@@ -25,9 +32,18 @@ public class BallPane extends Pane {
 		circle.setFill(Color.rgb(R,G,B));	// Set ball color
 		getChildren().add(circle);	// Place a ball into this pane
 		// Create an animation for moving the ball
-		animation = new Timeline(new KeyFrame(Duration.millis(50), e -> moveBall()));
+		animation = new Timeline(new KeyFrame(Duration.millis(100), e -> moveBall()));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.play();	// Start animation
+		
+		button2.setLayoutX(0);
+		button2.setLayoutY(0);
+		getChildren().add(button2);
+		button1.setLayoutX(45);
+		button1.setLayoutY(0);
+		getChildren().add(button1);
+		button1.setPrefSize(40,20);
+		button2.setPrefSize(40,20);
 	}
 	
 	public void play() {
@@ -56,7 +72,7 @@ public class BallPane extends Pane {
         int B = (int)(Math.random( )*256);
 		circle.setFill(Color.rgb(R,G,B));	// Set ball color
 	}
-	
+
 	protected void moveBall() {
 		// Checkboundaries
 		if(x < radius || x > getWidth() - radius) {
@@ -74,4 +90,17 @@ public class BallPane extends Pane {
 		circle.setCenterX(x);
 		circle.setCenterY(y);
 	}
+	public void moveY(){
+		dy *= -1;
+		y -= dy;
+		circle.setCenterX(x);
+		circle.setCenterY(y);
+	}
+	public void moveX(){
+		dx *= -1;
+		x -= dx;
+		circle.setCenterY(y);
+		circle.setCenterX(x);
+	}
+	
 }
