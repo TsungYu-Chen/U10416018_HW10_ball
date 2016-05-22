@@ -7,16 +7,22 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import java.security.SecureRandom;
 
 public class BallPane extends Pane {
-	public final double radius = 20;
+	SecureRandom random = new SecureRandom();
+	public final double radius = (double)(Math.random()*20);
 	private double x = radius, y = radius;
 	private double dx = 1, dy = 1;
 	private Circle circle = new Circle(x, y, radius);
 	private Timeline animation;
 	
 	public BallPane() {
-		circle.setFill(Color.GREEN);	// Set ball color
+		SecureRandom random = new SecureRandom();
+		int R = (int) (Math.random( )*256);
+        int G = (int)(Math.random( )*256);
+        int B = (int)(Math.random( )*256);
+		circle.setFill(Color.rgb(R,G,B));	// Set ball color
 		getChildren().add(circle);	// Place a ball into this pane
 		// Create an animation for moving the ball
 		animation = new Timeline(new KeyFrame(Duration.millis(50), e -> moveBall()));
@@ -43,13 +49,22 @@ public class BallPane extends Pane {
 	public DoubleProperty rateProperty() {
 		return animation.rateProperty();
 	}
+	public void change(){
+		SecureRandom random = new SecureRandom();
+		int R = (int)(Math.random( )*256);
+        int G = (int)(Math.random( )*256);
+        int B = (int)(Math.random( )*256);
+		circle.setFill(Color.rgb(R,G,B));	// Set ball color
+	}
 	
 	protected void moveBall() {
 		// Checkboundaries
 		if(x < radius || x > getWidth() - radius) {
+			change();
 			dx *= -1;	// Change ball move direction
 		}
 		if(y < radius || y > getHeight() - radius) {
+			change();
 			dy *= -1;
 		}
 		
