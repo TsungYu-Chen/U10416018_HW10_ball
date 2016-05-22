@@ -15,7 +15,15 @@ public class BounceBallControl extends Application {
 		ballPane.setOnMousePressed(e -> ballPane.pause());
 		ballPane.setOnMouseReleased(e -> ballPane.play());
 		
-		// Increase and decrease animation
+		ballPane.button1.setOnAction(e -> {
+            ballPane.moveY();
+        
+		});
+		ballPane.button2.setOnAction(e -> {
+            ballPane.moveX();
+        
+		});
+			// Increase and decrease animation
 		ballPane.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.UP) {
 				ballPane.increaseSpeed();
@@ -26,7 +34,7 @@ public class BounceBallControl extends Application {
 		});
 		
 		// Create a scene and place it in the stage
-		Scene scene = new Scene(ballPane, 300, 300);
+		Scene scene = new Scene(ballPane, 300, 350);
 		primaryStage.setTitle("BounceBallControl");	// Set the stage title
 		primaryStage.setScene(scene);	// Place the scene in the stage
 		primaryStage.show();	//Display the stage
